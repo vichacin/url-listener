@@ -1,5 +1,5 @@
 {
-  "name": "YOURAPPNAME",
+  "name": "url-listener",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
@@ -14,6 +14,9 @@
   "lint-staged": {
     "*.{ts,js,tsx,jsx}": [
       "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,graphql,gql}": [
       "prettier --write"
     ],
     "*.json": [
