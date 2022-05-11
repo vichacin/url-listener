@@ -1,11 +1,51 @@
 <script>
   (function() {
-    var appId = "{{settings.gtmId}}";
-    if (!appId) {
-      console.error('Warning: No APP NAME ID is defined. Please configure it in the apps admin.');
-      return
+    // https://multisitesegment--pocmultisitiofty.myvtex.com/jabon-liquido-dove-ritual-energizante-x-250-ml/p?segmentKey=productClusterIds&segmentValue=137
+    // https://multisitesegment--pocmultisitiofty.myvtex.com/jabon-liquido-dove-ritual-energizante-x-250-ml/p?segmentKey=productClusterIds&segmentValue=138
+    // https://multisitesegment--pocmultisitiofty.myvtex.com/jabon-liquido-dove-ritual-energizante-x-250-ml/p?segmentKey=productClusterIds&segmentValue=139
+
+    let currentUrl = window.location.href;
+    
+    if ( currentUrl.indexOf("segmentKey") > -1 ) {
+
+      console.log("Entré en el método");
+
+      const productUrl = currentUrl.split("?")[0];
+      // let urlAux = "https://multisitesegment--pocmultisitiofty.myvtex.com/";
+      const segmentUrl = currentUrl.split("?")[1];
+
+      let segmentParameters = segmentUrl.split("&");
+      let parameter = segmentParameters[0].split("=")[1];
+      let parameterValue = segmentParameters[1].split("=")[1];
+
+      console.info("La segmentKey es: " + parameter);
+      console.info("El segmentValue es: " + parameterValue);
+
+      const SetFacets = async(parameter, parameterValue, url) => {
+        const data = {
+          public: {
+            facets: {
+              value: `${parameter}=${parameterValue};`
+            }
+          }
+        };
+
+        fetch('/api/sessions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then((response) => {
+          response.json();
+          location.replace(url);
+        });
+      }
+
+      SetFacets(parameter, parameterValue, productUrl);
     }
 
-    // Add script here
   })()
 </script>
