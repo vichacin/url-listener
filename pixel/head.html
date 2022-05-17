@@ -1,25 +1,16 @@
 <script>
   (function() {
-    // https://multisitesegment--pocmultisitiofty.myvtex.com/jabon-liquido-dove-ritual-energizante-x-250-ml/p?segmentKey=productClusterIds&segmentValue=137
-    // https://multisitesegment--pocmultisitiofty.myvtex.com/jabon-liquido-dove-ritual-energizante-x-250-ml/p?segmentKey=productClusterIds&segmentValue=138
-    // https://multisitesegment--pocmultisitiofty.myvtex.com/jabon-liquido-dove-ritual-energizante-x-250-ml/p?segmentKey=productClusterIds&segmentValue=139
 
     let currentUrl = window.location.href;
     
     if ( currentUrl.indexOf("segmentKey") > -1 ) {
 
-      console.log("Entré en el método");
-
-      const productUrl = currentUrl.split("?")[0];
-      // let urlAux = "https://multisitesegment--pocmultisitiofty.myvtex.com/";
+      const baseUrl = currentUrl.split("?")[0];
       const segmentUrl = currentUrl.split("?")[1];
 
       let segmentParameters = segmentUrl.split("&");
       let parameter = segmentParameters[0].split("=")[1];
       let parameterValue = segmentParameters[1].split("=")[1];
-
-      console.info("La segmentKey es: " + parameter);
-      console.info("El segmentValue es: " + parameterValue);
 
       const SetFacets = async(parameter, parameterValue, url) => {
         const data = {
@@ -44,7 +35,7 @@
         });
       }
 
-      SetFacets(parameter, parameterValue, productUrl);
+      SetFacets(parameter, parameterValue, baseUrl);
     }
 
   })()
